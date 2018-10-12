@@ -1,0 +1,28 @@
+{
+    "name": "cupoftea/slice-core",
+    "description": "Core package of cupoftea/slice",
+    "keywords": ["laravel", "blade", "router", "standalone", "templating", "illuminate"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Frankie Wittevrongel",
+            "email": "frankie@cupoftea.io"
+        }
+    ],
+    "require": {
+        "illuminate/config": "^5.7",
+        "illuminate/cookie": "^5.7",
+        "illuminate/routing": "^5.7",
+        "illuminate/view": "^5.7",
+        "symfony/var-dumper": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Slice\\": "src/"
+        },
+        "files": ["src/helpers.php"]
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
