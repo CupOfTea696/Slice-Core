@@ -80,7 +80,7 @@ if (! function_exists('app')) {
      *
      * @param  string  $abstract
      * @param  array   $parameters
-     * @return mixed|\Slice\App
+     * @return mixed|\Slice\Slice
      */
     function app($abstract = null, array $parameters = [])
     {

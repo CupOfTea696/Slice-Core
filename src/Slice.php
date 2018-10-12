@@ -2,12 +2,37 @@
 
 namespace Slice;
 
+use CupOfTea\Package\Package;
 use Illuminate\Container\Container;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use CupOfTea\Package\Contracts\Package as PackageContract;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class App extends Container
+class Slice extends Container implements PackageContract
 {
+    use Package;
+    
+    /**
+     * Package Vendor.
+     *
+     * @const string
+     */
+    const VENDOR = 'CupOfTea';
+    
+    /**
+     * Package Name.
+     *
+     * @const string
+     */
+    const PACKAGE = 'Slice';
+    
+    /**
+     * Package Version.
+     *
+     * @const string
+     */
+    const VERSION = '0.0.0';
+    
     /**
      * The Application's root path.
      * 
@@ -128,7 +153,7 @@ class App extends Container
     public function registerCoreContainerAliases()
     {
         foreach ([
-            'app'                  => [\Slice\App::class, \Illuminate\Contracts\Container\Container::class, \Psr\Container\ContainerInterface::class],
+            'app'                  => [\Slice\Slice::class, \Illuminate\Contracts\Container\Container::class, \Psr\Container\ContainerInterface::class],
             'blade.compiler'       => [\Illuminate\View\Compilers\BladeCompiler::class],
             'config'               => [\Illuminate\Config\Repository::class, \Illuminate\Contracts\Config\Repository::class],
             'events'               => [Illuminate\Events\Dispatcher::class, \Illuminate\Contracts\Events\Dispatcher::class],

@@ -4,8 +4,41 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e49b36487d5d34ddd8de43907c6e2007",
+    "content-hash": "ee56158b241f7ecb9871d6b637323758",
     "packages": [
+        {
+            "name": "cupoftea/package",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CupOfTea696/Package.git",
+                "reference": "8c8580e6c9a7d5940809955c5527749ed24f499e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CupOfTea696/Package/zipball/8c8580e6c9a7d5940809955c5527749ed24f499e",
+                "reference": "8c8580e6c9a7d5940809955c5527749ed24f499e",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CupOfTea\\Package\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CupOfTea696",
+                    "email": "cupoftea696@gmail.com"
+                }
+            ],
+            "description": "Package base for CoT Packages.",
+            "time": "2016-11-14T11:23:30+00:00"
+        },
         {
             "name": "doctrine/inflector",
             "version": "v1.3.0",
