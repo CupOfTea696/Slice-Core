@@ -4,6 +4,7 @@ namespace Slice;
 
 use CupOfTea\Package\Package;
 use Illuminate\Container\Container;
+use Illuminate\Support\Facades\Facade;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use CupOfTea\Package\Contracts\Package as PackageContract;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -69,6 +70,8 @@ class Slice extends Container implements PackageContract
         
         $this->registerCoreProviders();
         $this->registerCoreContainerAliases();
+        
+        Facade::setFacadeApplication($this);
         
         $this->boot();
         
