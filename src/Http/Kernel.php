@@ -2,12 +2,16 @@
 
 namespace Slice\Http;
 
+use Exception;
+use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Routing\Pipeline;
 use Illuminate\Routing\Redirector;
 use Illuminate\Container\Container;
 use Illuminate\Routing\UrlGenerator;
+use Slice\Contracts\Debug\ExceptionHandler;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 class Kernel
 {
@@ -86,6 +90,31 @@ class Kernel
      * @return \Illuminate\Http\Response
      */
     public function handle(Request $request)
+    {
+        try {
+            $request->enableHttpMethodParameterOverride();
+            
+            $response = $this->sendRequestThroughRouter($request);
+        } catch (Exception $e) {
+            $response = $this->renderException($request, $e);
+        } catch (Throwable $e) {
+            $response = $this->renderException($request, $e = new FatalThrowableError($e));
+        }
+        
+        $this->app['events']->dispatch(
+            new Events\RequestHandled($request, $response)
+        );
+        
+        return $response;
+    }
+    
+    /**
+     * Send the given request through the middleware / router.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendRequestThroughRouter($request)
     {
         $redirect = new Redirector(new UrlGenerator($this->router->getRoutes(), $request));
         
@@ -224,5 +253,17 @@ class Kernel
         }
         
         return $this;
+    }
+    
+    /**
+     * Render the exception to a response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $e
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function renderException($request, Exception $e)
+    {
+        return $this->app[ExceptionHandler::class]->render($request, $e);
     }
 };
